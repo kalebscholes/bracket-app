@@ -1,111 +1,64 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import Team from './team'
 import GameSelector from './gameselector'
 
-class Game extends Component {
-  adjustName(name) {
-    name = name.replace('-', ' ')
-    return name.replace(/\w\S*/g, function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-    })
+export default function Game({
+  firstSeed,
+  firstSeedPredicted,
+  secondSeed,
+  secondSeedPredicted,
+  seeds,
+  final,
+  gamesPredicted,
+  games
+}) {
+  const firstName = firstSeed !== 0 ? seeds[firstSeed] : null
+  const secondName = secondSeed !== 0 ? seeds[secondSeed] : null
+
+  let firstNamePredicted = ''
+  let secondNamePredicted = ''
+
+  if (firstSeedPredicted) {
+    firstSeedPredicted = final
+      ? seeds[firstSeedPredicted[0]][firstSeedPredicted[1]]
+      : seeds[firstSeedPredicted]
+
+    secondNamePredicted = final
+      ? seeds[secondSeedPredicted[0]][secondSeedPredicted[1]]
+      : seeds[secondSeedPredicted]
   }
 
-  getNames() {
-    if (this.props.firstSeed !== 0) {
-      var firstName = this.props.seeds[this.props.firstSeed]
-      this.ogFirstName = firstName
-      this.firstName = this.adjustName(firstName)
-    }
-
-    if (this.props.secondSeed !== 0) {
-      var secondName = this.props.seeds[this.props.secondSeed]
-      this.ogSecondName = secondName
-      this.secondName = this.adjustName(secondName)
-    }
+  const summary = {
+    [firstSeed]: { name: firstName },
+    [secondSeed]: { name: secondName }
   }
 
-  getNamesPredicted() {
-    if (this.props.final) {
-      var firstSeed = this.props.firstSeedPredicted
-      var firstName = this.props.seeds[firstSeed[0]][firstSeed[1]]
-      this.ogFirstNamePredicted = firstName
-      this.firstNamePredicted = this.adjustName(firstName)
+  return (
+    <article className="game">
+      <Team
+        name={firstName}
+        namePredicted={firstNamePredicted}
+        displayName={firstName}
+        displayNamePredicted={firstNamePredicted}
+        seed={firstSeed}
+        seedPredicted={final ? firstSeedPredicted[1] : firstSeedPredicted}
+      />
 
-      var secondSeed = this.props.secondSeedPredicted
-      var secondName = this.props.seeds[secondSeed[0]][secondSeed[1]]
-      this.ogSecondNamePredicted = secondName
-      this.secondNamePredicted = this.adjustName(secondName)
-    } else {
-      var firstName = this.props.seeds[this.props.firstSeedPredicted]
-      this.ogFirstNamePredicted = firstName
-      this.firstNamePredicted = this.adjustName(firstName)
+      <Team
+        name={secondName}
+        namePredicted={secondNamePredicted}
+        displayName={secondName}
+        displayNamePredicted={secondNamePredicted}
+        seed={secondSeed}
+        seedPredicted={final ? secondSeedPredicted[1] : secondSeedPredicted}
+      />
 
-      var secondName = this.props.seeds[this.props.secondSeedPredicted]
-      this.ogSecondNamePredicted = secondName
-      this.secondNamePredicted = this.adjustName(secondName)
-    }
-  }
-
-  summarize() {
-    var response = {}
-    response[this.props.firstSeed] = {
-      name: this.ogFirstName
-    }
-    response[this.props.secondSeed] = {
-      name: this.ogSecondName
-    }
-    return response
-  }
-
-  render() {
-    this.getNames()
-
-    if (this.props.firstSeedPredicted) {
-      this.getNamesPredicted()
-    } else {
-      this.ogFirstNamePredicted = ''
-      this.firstNamePredicted = ''
-      this.ogSecondNamePredicted = ''
-      this.secondNamePredicted = ''
-    }
-
-    return (
-      <article className="game">
-        <Team
-          name={this.ogFirstName}
-          namePredicted={this.ogFirstNamePredicted}
-          displayName={this.firstName}
-          displayNamePredicted={this.firstNamePredicted}
-          seed={this.props.firstSeed}
-          seedPredicted={
-            this.props.final
-              ? this.props.firstSeedPredicted[1]
-              : this.props.firstSeedPredicted
-          }
-        />
-
-        <Team
-          name={this.ogSecondName}
-          namePredicted={this.ogSecondNamePredicted}
-          displayName={this.secondName}
-          displayNamePredicted={this.secondNamePredicted}
-          seed={this.props.secondSeed}
-          seedPredicted={
-            this.props.final
-              ? this.props.secondSeedPredicted[1]
-              : this.props.secondSeedPredicted
-          }
-        />
-
-        <GameSelector
-          games={this.props.games}
-          seeds={this.summarize()}
-          gamesPredicted={this.props.gamesPredicted}
-        />
-      </article>
-    )
-  }
+      <GameSelector
+        games={games}
+        seeds={summary}
+        gamesPredicted={gamesPredicted}
+      />
+    </article>
+  )
 }
-
-export default Game

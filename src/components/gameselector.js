@@ -1,37 +1,33 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class GameSelector extends Component {
-  createOptions() {
-    var response = []
-    for (var i = 1; i < 8; i++) {
-      if (
-        this.props.games &&
-        i - 1 < this.props.games.length &&
-        this.props.seeds
-      ) {
-        var seed = this.props.games[i - 1]
-        if (seed in this.props.seeds) {
-          if (i === this.props.gamesPredicted) {
+export default function GameSelector({ games, seeds, gamesPredicted }) {
+  const createOptions = () => {
+    const response = []
+    for (let i = 1; i < 8; i++) {
+      let seed
+      if (games && i - 1 < games.length && seeds) {
+        seed = games[i - 1]
+        if (seed in seeds) {
+          if (i === gamesPredicted) {
             response.push([
               seed,
-              'game-option predicted background-' +
-                this.props.seeds[seed]['name']
+              'game-option predicted background-' + seeds[seed]['name']
             ])
           } else {
             response.push([
               seed,
-              'game-option background-' + this.props.seeds[seed]['name']
+              'game-option background-' + seeds[seed]['name']
             ])
           }
         } else {
-          if (i === this.props.gamesPredicted) {
+          if (i === gamesPredicted) {
             response.push([seed, 'game-option predicted unplayed'])
           } else {
             response.push([i - 1, 'game-option'])
           }
         }
       } else {
-        if (i === this.props.gamesPredicted) {
+        if (i === gamesPredicted) {
           response.push([seed, 'game-option predicted unplayed'])
         } else {
           response.push([i - 1, 'game-option'])
@@ -41,15 +37,15 @@ class GameSelector extends Component {
     return response
   }
 
-  render() {
-    var options = this.createOptions().map((element, i) => (
-      <span className={element[1]} value={element[0]} key={i}>
-        {i + 1}
-      </span>
-    ))
+  const options = createOptions()
 
-    return <div className="game-selector">{options}</div>
-  }
+  return (
+    <div className="game-selector">
+      {options.map((element, i) => (
+        <span className={element[1]} value={element[0]} key={i}>
+          {i + 1}
+        </span>
+      ))}
+    </div>
+  )
 }
-
-export default GameSelector
