@@ -1,9 +1,23 @@
 import React from 'react'
-
+import styled from 'styled-components'
 import Team from './team'
-import GameSelector from './gameselector'
+// import GameSelector from './gameselector'
+
+const GameContainer = styled.div(({ round }) => {
+  return {
+    margin: 0,
+    width: '100%',
+    // paddingTop: 10 + round * 40,
+    // paddingRight: 0,
+    // paddingBottom: 10 + round * 40,
+    // paddingLeft: 0,
+    height: '60px',
+    transition: 'all 0.2s'
+  }
+})
 
 export default function Game({
+  round,
   firstSeed,
   firstSeedPredicted,
   secondSeed,
@@ -35,7 +49,7 @@ export default function Game({
   }
 
   return (
-    <article className="game">
+    <GameContainer round={round} className="game">
       <Team
         name={firstName}
         namePredicted={firstNamePredicted}
@@ -54,11 +68,11 @@ export default function Game({
         seedPredicted={final ? secondSeedPredicted[1] : secondSeedPredicted}
       />
 
-      <GameSelector
-        games={games}
-        seeds={summary}
-        gamesPredicted={gamesPredicted}
-      />
-    </article>
+      {/*<GameSelector*/}
+      {/*  games={games}*/}
+      {/*  seeds={summary}*/}
+      {/*  gamesPredicted={gamesPredicted}*/}
+      {/*/>*/}
+    </GameContainer>
   )
 }

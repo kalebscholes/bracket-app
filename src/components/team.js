@@ -1,4 +1,20 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const TeamContainer = styled.div`
+  padding: 0 5px;
+  margin: 3px 0;
+  height: 25px;
+  line-height: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  
+  background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+`
 
 export default function Team({
   name,
@@ -26,14 +42,14 @@ export default function Team({
     teamDisplayName = displayName
     wrongName = displayNamePredicted
   }
-  console.log('team')
+  console.log('team', currentSeed, teamDisplayName, wrongName)
   return (
-    <div className={className} data-team={dataTeam}>
+    <TeamContainer className={className}>
       <span className="team-seed">{currentSeed}</span>
       <span className="team-name">
         <div className="correct">{teamDisplayName}</div>
         <div className="incorrect">{wrongName}</div>
       </span>
-    </div>
+    </TeamContainer>
   )
 }

@@ -1,24 +1,29 @@
 import React from 'react'
 import Round from './round'
+import styled from 'styled-components'
+
+const RegionContainer = styled.div(({ type }) => {
+  return {
+    float: 'left',
+    display: 'flex',
+    width: '42%',
+    flexDirection: type === 'left' ? 'row' : 'row-reverse',
+
+    '@screen and (max-width: 1099px) and (min-width: 981px)': {
+      width: '43%'
+    }
+  }
+})
 
 export default function Region({ name, seeds, rounds, userData, games, type }) {
-  if (name === 'Final') {
-    return (
-      <Round
-        seeds={seeds}
-        pairings={rounds[0]}
-        games={games[0]}
-        gamesPredicted={userData['games'][0]}
-        pairingsPredicted={userData['matchups'][0]}
-        final={true}
-        number={0}
-        key={0}
-      />
-    )
-  }
   return (
-    <div className={type === 'right' ? 'region region-right' : 'region'}>
-      <h2 className="region-name">{name}</h2>
+    <RegionContainer
+      type={type}
+      className={
+        type === 'right' ? 'region region--right' : 'region region--left'
+      }
+    >
+      {/*<h2 className="region-name">{name}</h2>*/}
       {rounds.map((element, i) => (
         <Round
           seeds={seeds}
@@ -31,6 +36,6 @@ export default function Region({ name, seeds, rounds, userData, games, type }) {
           key={i}
         />
       ))}
-    </div>
+    </RegionContainer>
   )
 }
