@@ -1,8 +1,8 @@
 import React from 'react'
 import Game from './game'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-const RoundContainer = styled.div`
+const Round = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 2.5% 0 0;
@@ -17,15 +17,22 @@ const RoundContainer = styled.div`
   @media (max-width: 768px) {
     min-width: 100vw;
     padding: 20px;
-  }
+    
+    ${props =>
+      props.active === false &&
+      css`
+        display: none;
+      `}
 `
 
 const RoundHeader = styled.div`
   font-family: "Roboto Condensed", sans-serif;
-  color: #2c7399;
+  color: white;
   text-transform: uppercase;
   text-align: center;
   padding: 20px;
+  font-size: 20px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .4);
 }
 `
 
@@ -43,16 +50,24 @@ const RoundContent = styled.div`
 
 export default function({ division, round, number }) {
   return (
-    <RoundContainer className={`round round-${number} division-${division}`}>
+    <Round
+      active={round.active}
+      className={`round round-${number} division-${division}`}
+    >
       <RoundHeader>
         <h6>{round.title}</h6>
         {round.date && <RoundDate>{round.date}</RoundDate>}
       </RoundHeader>
       <RoundContent className="round-content">
         {round?.pairings?.map((pairing, i) => (
-          <Game division={division} pairing={pairing} key={i} />
+          <Game
+            active={round.active}
+            division={division}
+            pairing={pairing}
+            key={i}
+          />
         ))}
       </RoundContent>
-    </RoundContainer>
+    </Round>
   )
 }

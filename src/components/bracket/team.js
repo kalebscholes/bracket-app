@@ -17,6 +17,10 @@ const TeamContainer = styled.div(({ division }) => {
     overflow: 'hidden',
     position: 'relative',
     flexDirection,
+    ' @media (max-width: 768px)': {
+      flex: '1 1 50px',
+      height: '50px'
+    },
     ':first-child': {
       borderBottom: ' 1px solid rgba(0, 0, 0, 0.05)'
     }

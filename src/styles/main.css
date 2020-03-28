@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow+Condensed|Open+Sans&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,4 +8,5 @@
 
 body {
   overflow-y: hidden;
+  font-family: 'Barlow Condensed', sans-serif;
 }
