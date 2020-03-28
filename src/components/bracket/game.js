@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Team from './team'
 
-const GameContainer = styled.div(props => {
+const Game = styled.div(({ division }) => {
+  const marginTop = division === 'final' ? 50 : 0
   return {
     background: 'white',
     width: '100%',
@@ -10,17 +11,17 @@ const GameContainer = styled.div(props => {
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column',
-    boxShadow: ' 0 3px 6px rgba(0, 0, 0, 0.05)'
+    boxShadow: ' 0 3px 6px rgba(0, 0, 0, 0.1)',
+    marginTop
   }
 })
 
-//TODO: pass team id / round
-export default function Game({ round, pairing = [], type }) {
+export default function({ division, pairing = [] }) {
   return (
-    <GameContainer round={round} className="game">
+    <Game division={division} className="game">
       {pairing.map((id, idx) => (
-        <Team key={idx} type={type} id={id} />
+        <Team key={idx} teamId={id} division={division} />
       ))}
-    </GameContainer>
+    </Game>
   )
 }

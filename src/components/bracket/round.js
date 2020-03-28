@@ -41,22 +41,16 @@ const RoundContent = styled.div`
   flex: 1;
 `
 
-export default function Round({ round, final, number, type }) {
-  const pairings = round?.pairings || []
-
+export default function({ division, round, number }) {
   return (
-    <RoundContainer
-      final={final}
-      number={number}
-      className={'round ' + (final ? 'final' : '') + ' round-' + number}
-    >
+    <RoundContainer className={`round round-${number} division-${division}`}>
       <RoundHeader>
         <h6>{round.title}</h6>
         {round.date && <RoundDate>{round.date}</RoundDate>}
       </RoundHeader>
-      <RoundContent className={'round-content'}>
-        {pairings.map((pairing, i) => (
-          <Game type={type} round={number} pairing={pairing} key={i} />
+      <RoundContent className="round-content">
+        {round?.pairings?.map((pairing, i) => (
+          <Game division={division} pairing={pairing} key={i} />
         ))}
       </RoundContent>
     </RoundContainer>

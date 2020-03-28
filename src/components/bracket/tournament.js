@@ -18,7 +18,7 @@ const Bracket = styled.div`
   }
 `
 
-const TournamentContainer = styled.div`
+const Tournament = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -26,9 +26,9 @@ const TournamentContainer = styled.div`
 
 const Hero = styled.header``
 
-export default function Tournament({ tournament, teams }) {
+export default function({ tournament }) {
   return (
-    <TournamentContainer className="tournament">
+    <Tournament className="tournament">
       {/*<Hero className="hero">*/}
       {/*  <div className="hero-wrap">*/}
       {/*    <h1 id="headline">Tournament</h1>*/}
@@ -40,12 +40,10 @@ export default function Tournament({ tournament, teams }) {
       {/*</Hero>*/}
 
       <Bracket className="bracket">
-        {/*<Container className="container">*/}
         {tournament.map((region, idx) => (
-          <Region key={idx} teams={teams} region={region} />
+          <Region key={idx} region={region} />
         ))}
-        {/*</Container>*/}
       </Bracket>
-    </TournamentContainer>
+    </Tournament>
   )
 }

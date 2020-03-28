@@ -1,11 +1,17 @@
 import React from 'react'
 import { render } from 'react-dom'
 import Tournament from './components/bracket/tournament'
-import { tournament, teams } from './data/tournament'
+import { tournament } from './data/tournament'
+import { teams } from './data/teams'
+import { TeamContext } from './context'
 import './styles/main.css'
 
-function App(props) {
-  return <Tournament tournament={tournament} teams={teams} />
+function App() {
+  return (
+    <TeamContext.Provider value={teams}>
+      <Tournament tournament={tournament} />
+    </TeamContext.Provider>
+  )
 }
 
 render(<App />, document.getElementById('app-root'))
