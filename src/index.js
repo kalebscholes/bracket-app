@@ -1,14 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Region from './components/region'
-
-import tournamentData from './data/playoffs2017.json'
-import brackets from './data/brackets2017.json'
-import Tournament from './components/tournament'
+import Tournament from './components/bracket/tournament'
+import { tournament, teams } from './data/tournament'
+import './styles/main.css'
 
 function App(props) {
-  const regions = Object.keys(tournamentData)
-  return <Tournament id="canvas" regions={regions} />
+  return <Tournament tournament={tournament} teams={teams} />
 }
 
 render(<App />, document.getElementById('app-root'))
