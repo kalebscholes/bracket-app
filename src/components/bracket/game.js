@@ -6,6 +6,7 @@ const Game = styled.div(({ active, division }) => {
   const marginTop = division === 'final' ? 50 : 0
   const opacity = active ? 1 : 0.5
   return {
+    userSelect: 'none',
     background: 'white',
     width: '100%',
     borderRadius: '5px',
