@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
@@ -43,7 +44,8 @@ module.exports = {
         from: 'src/publc/*.ico',
         flatten: true
       }
-    ])
+    ]),
+    new webpack.EnvironmentPlugin(['APP_GA_TRACKING_ID'])
   ],
   output: {
     filename: 'bundle.js',

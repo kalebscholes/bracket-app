@@ -7,6 +7,7 @@ import { tournament } from './data/tournament'
 import { teams } from './data/teams'
 import { TeamContext } from './context'
 import './serviceWorker'
+import './analytics'
 import './styles/main.css'
 
 const Header = styled.div`
