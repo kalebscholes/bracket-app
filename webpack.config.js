@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -32,7 +33,17 @@ module.exports = {
       // and not allow any straggling "old" SWs to hang around
       clientsClaim: true,
       skipWaiting: true
-    })
+    }),
+    new CopyPlugin([
+      {
+        from: 'src/public/*.png',
+        flatten: true
+      },
+      {
+        from: 'src/publc/*.ico',
+        flatten: true
+      }
+    ])
   ],
   output: {
     filename: 'bundle.js',

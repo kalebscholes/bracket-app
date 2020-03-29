@@ -26,7 +26,6 @@ const Round = styled.div`
 `
 
 const RoundHeader = styled.div`
-  font-family: "Roboto Condensed", sans-serif;
   color: white;
   text-transform: uppercase;
   text-align: center;
